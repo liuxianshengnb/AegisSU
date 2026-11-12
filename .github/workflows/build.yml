@@ -14,7 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unzip source code
-        run: unzip -o AegisSU-RootManager.zip
+        run: |
+          unzip -o AegisSU-RootManager.zip
+          printf "android.useAndroidX=true\nandroid.suppressUnsupportedCompileSdk=35\n" > AegisSU/gradle.properties
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
