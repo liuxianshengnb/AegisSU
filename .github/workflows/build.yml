@@ -41,4 +41,4 @@ jobs:
 
       - name: Build Release APK
         working-directory: AegisSU
-        run: gradle assembleRelease --no
+        run: gradle assembleRelease 
