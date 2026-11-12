@@ -13,10 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Unzip source code
+      - name: Unzip and patch source code
         run: |
           unzip -o AegisSU-RootManager.zip
-          printf "android.useAndroidX=true\nandroid.suppressUnsupportedCompileSdk=35\n" > AegisSU/gradle.properties
+          printf "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m\nandroid.useAndroidX=true\nandroid.suppressUnsupportedCompileSdk=35\n" > AegisSU/gradle.properties
+          sed -i 's|"$zipPath"|'\''$zipPath'\''|g' AegisSU/app/src/main/java/com/aegissu/manager/core/RootBackend.kt
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
