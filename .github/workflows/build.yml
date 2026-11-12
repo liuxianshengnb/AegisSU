@@ -17,7 +17,9 @@ jobs:
         run: |
           unzip -o AegisSU-RootManager.zip
           printf "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m\nandroid.useAndroidX=true\nandroid.suppressUnsupportedCompileSdk=35\n" > AegisSU/gradle.properties
-          sed -i 's|"$zipPath"|'\''$zipPath'\''|g' AegisSU/app/src/main/java/com/aegissu/manager/core/RootBackend.kt
+          sed -i 's|""mkdir 0750 overlay.d" "|"\x27mkdir 0750 overlay.d\x27 "|g' AegisSU/app/src/main/java/com/aegissu/manager/core/BootImagePatcher.kt
+          sed -i 's|""mkdir 0750 overlay.d/sbin" "|"\x27mkdir 0750 overlay.d/sbin\x27 "|g' AegisSU/app/src/main/java/com/aegissu/manager/core/BootImagePatcher.kt
+          sed -i 's|""add 04755 overlay.d/sbin/su ${nativeSu.absolutePath}""|"\x27add 04755 overlay.d/sbin/su ${nativeSu.absolutePath}\x27"|g' AegisSU/app/src/main/java/com/aegissu/manager/core/BootImagePatcher.kt
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
